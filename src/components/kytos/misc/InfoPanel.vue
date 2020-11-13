@@ -92,7 +92,13 @@ export default {
       if (!this.nothinShow) {
         this.show(this.lastContent)
       } else {
-        this.$kytos.$emit('setNotification', 'No InfoPanel to Display')
+        let notification = {
+          component: 'k-notification',
+          icon: 'desktop',
+          title: 'Error: No InfoPanel to Display',
+          description: 'Please try to input a valid InfoPanel before toggle it'
+        }
+        this.$kytos.$emit('setNotification', notification)
       }
     },
     register_listeners() {

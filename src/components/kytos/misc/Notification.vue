@@ -1,19 +1,20 @@
 <template>
-  <div class="notification-container">
+  <div v-if="showNotification" class="notification-container">
     <div class="k-notification">
       <div class="notification-body">
-        <icon class="notification-icon" name="gear"></icon>
+        <icon v-if="icon != undefined" class="notification-icon" v-bind:name= icon></icon>
+        <icon v-else class="notification-icon" name="desktop"></icon>
         <div>
-          <h4 class="notification-text notification-title">Notification Title</h4>
-          <p class="notification-text notification-description">Notification
-            body description</p>
+          <h4 v-if="title != undefined" class="notification-text notification-title">{{ title }}</h4>
+          <h4 v-else class="notification-text notification-title">No Title Inserted</h4>
+
+          <p v-if="description != undefined" class="notification-text notification-description">{{ description }}</p>
         </div>
       </div>
-      <k-button class="dismiss-notification" tooltip="Dismiss Notification" icon="times"></k-button>
+      <k-button class="dismiss-notification" :on_click="dismiss" tooltip="Dismiss Notification" icon="times"></k-button>
     </div>
     <hr class="notification-separator">
   </div>
-
 </template>
 
 <script>
@@ -32,7 +33,17 @@ export default {
     },
     description: {
       type: String,
-    },
+    }
+  },
+  data(){
+    return {
+      showNotification: true
+    }
+  },
+  methods: {
+    dismiss() {
+      this.showNotification = false
+    }
   }
 }
 </script>

@@ -36,8 +36,8 @@
     </div>
 
     <div id="notifications" class="tabcontent">
-      <k-notification></k-notification>
-      <k-notification></k-notification>
+      <component v-for="notification in notify" v-bind:is="notification.component" v-bind:title="notification.title"
+                 v-bind:description="notification.description" v-bind:icon="notification.icon"></component>
     </div>
 
   </div>
@@ -56,6 +56,7 @@ export default {
       hiddenTabs: true,
       hiddenPanel: true,
       content: {},
+      notify: []
     }
   },
 
@@ -68,14 +69,12 @@ export default {
     },
     latestInfoPanel() {
       let infoPanelEvent
-
       (this.hiddenPanel) ? infoPanelEvent = 'showLatestInfoPanel' : infoPanelEvent = 'hideInfoPanel'
       this.$kytos.$emit(infoPanelEvent)
     },
     setNotification(notification) {
       this.openTab('notifications')
-
-      $('#notifications').html("<div class='row'><p class='notification-text'>" + notification + "</p></div>")
+      this.notify.push(notification)
     },
 
     fullTerminal() {
@@ -143,7 +142,14 @@ export default {
        * setup a notification.
        *
        * @event setNotification
-       * @type {String} Notification text that will be displayed.
+       * @type {object} Notification text that will be displayed.
+       *
+       *       {
+       *         **component**: "k-notification",
+       *         **title**: "Switch Request", // Title of the notification
+       *         **description**: "Connection to port 00", // Title of the notification
+       *         **icon**: "desktop" //fa-icon name as the main icon of the notification
+       *       }
        */
       this.$kytos.$on('setNotification', this.setNotification)
       /**

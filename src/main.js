@@ -28,7 +28,7 @@ import KytosStatusBar from './components/kytos/misc/StatusBar.vue'
 import KytosInput from './components/kytos/inputs/Input.vue';
 import KytosTextarea from './components/kytos/inputs/Textarea.vue';
 import KytosCheckbox from './components/kytos/inputs/Checkbox.vue';
-import MapBoxSettings from './components/kytos/map/MapBoxSettings.vue'
+import MapBoxSettings from './components/kytos/map/MapBoxSettings.vue';
 
 import KytosSelect from './components/kytos/inputs/Select.vue';
 import KytosSlider from './components/kytos/inputs/Slider.vue';
