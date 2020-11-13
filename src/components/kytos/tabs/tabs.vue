@@ -36,8 +36,8 @@
     </div>
 
     <div id="notifications" class="tabcontent">
-      <component v-for="notification in notify" v-bind:is="notification.component" v-bind:title="notification.title"
-                 v-bind:description="notification.description" v-bind:icon="notification.icon"></component>
+      <k-notification v-for="notification in notify" v-bind:key="notification.id" v-bind:title="notification.title"
+                 v-bind:description="notification.description" v-bind:icon="notification.icon"></k-notification>
     </div>
 
   </div>
@@ -74,6 +74,8 @@ export default {
     },
     setNotification(notification) {
       this.openTab('notifications')
+      Object.assign(notification, {id: this.notify.length});
+      console.log(notification)
       this.notify.push(notification)
     },
 
