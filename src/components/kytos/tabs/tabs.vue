@@ -36,6 +36,8 @@
     </div>
 
     <div id="notifications" class="tabcontent">
+      <k-notification></k-notification>
+      <k-notification></k-notification>
     </div>
 
   </div>
@@ -44,6 +46,7 @@
 <script>
 import KytosBase from '../base/KytosBase';
 import KytosBaseWithIcon from '../base/KytosBaseWithIcon';
+
 
 export default {
   name: 'k-tabs',
@@ -71,7 +74,8 @@ export default {
     },
     setNotification(notification) {
       this.openTab('notifications')
-      $('#notifications').html("<p class='notification-text'>" + notification + "</p>")
+
+      $('#notifications').html("<div class='row'><p class='notification-text'>" + notification + "</p></div>")
     },
 
     fullTerminal() {
@@ -275,3 +279,4 @@ export default {
   margin: 10px
 
 </style>
+
