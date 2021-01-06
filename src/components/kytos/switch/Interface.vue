@@ -10,10 +10,37 @@
           <div class="rx_bytes">{{ rx_bytes * 8 | humanize_bytes }} R&nbsp;</div>
           <div class="padding-top-bottom"></div>
         </div>
+        <span class="tooltiptext">
+        <ul class="tooltiplist">
+          <li>mac:
+            <span v-if="this.mac">{{ this.mac }}</span>
+            <span v-else>unavailable</span>
+          </li>
+          <br>
+          <li>speed:
+            <span  v-if="this.speed">{{ this.speed }}</span>
+            <span v-else>unavailable</span>
+          </li>
+          <br>
+          <li >port_number:
+            <span v-if="this.port_number">{{ this.port_number }}</span>
+            <span v-else>unavailable</span>
+          </li>
+          <br>
+          <li>interface_id:
+            <span v-if="this.interface_id">{{ this.interface_id }}</span>
+            <span v-else>unavailable</span>
+          </li>
+        </ul>
+      </span>
       </div>
 
-      <k-chart-timeseries v-if="chartJsonData" :interface_id="interface_id" :jsonData="chartJsonData" :showGrid="false" :showAxis="false" :plotArea="false" :chartHeight="45"></k-chart-timeseries>
-      <div class="warn" v-else=>&nbsp;Interface speed is unavailable</div>
+      <k-chart-timeseries v-if="chartJsonData" :interface_id="interface_id"
+                          :jsonData="chartJsonData" :showGrid="false"
+                          :showAxis="false" :plotArea="false"
+                          :chartHeight="45">
+      </k-chart-timeseries>
+      <div class="warn" v-else>&nbsp;Interface speed is unavailable</div>
 
   </div>
 </template>
@@ -82,7 +109,7 @@ export default {
   },
   methods: {
     open_interface() {
-      var content = {"component": InterfaceInfo,
+      let content = {"component": InterfaceInfo,
                      "content": this,
                      "maximized": true,
                      "icon": "gear",
@@ -93,7 +120,7 @@ export default {
     },
     parseInterfaceData (data) {
       if (!data) {
-        var msg = "Error while trying to fetch interface data."
+        let msg = "Error while trying to fetch interface data."
         this.$kytos.$emit('statusMessage', msg, true)
       } else {
         this.chartJsonData = data['data']
@@ -133,6 +160,7 @@ export default {
   width: 100%
   color: $fill-text
   background-color: $fill-panel
+
 
   &:hover *
    color: $fill-link-h
@@ -193,8 +221,30 @@ export default {
   .warn
     color: $kytos-yellow
     flex: 1 0 auto
-    width: 100%
     align-self: center
-    justify-content: center
+    font-size: .8em
+
+.details .tooltiptext
+  visibility: hidden
+  min-width: 120px
+  background-color: $kytos-extra-dark
+  color: $kytos-dark-white
+  text-align: left
+  border-radius: 0
+  //padding: 5px 5px
+  font-size: .8em
+
+  /* Position the tooltip */
+  position: absolute
+  left: 104px
+  z-index: 1
+
+  .tooltiplist
+    padding: 5px
+    li
+      margin: 3px 0
+
+.details:hover .tooltiptext
+  visibility: visible
 
 </style>
